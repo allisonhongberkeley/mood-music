@@ -1,0 +1,22 @@
+
+.bar {
+    background-color: #EDE2F0;
+    top: 7.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    width: 80vw;
+}
+
+.flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button {
+    background-color: #EDE2F0;
+}
+
+.button:hover {
+    background-color: #EBDBFD;
+}

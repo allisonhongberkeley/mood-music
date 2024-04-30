@@ -1,0 +1,18 @@
+body {
+    align-items: center;
+}
+
+.select-feature-row {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    background-color: #EDE2F0;
+    width: 80vw;
+    padding: 0 2em;
+
+}
+
+.pad-right {
+    margin-right: 1em;
+}

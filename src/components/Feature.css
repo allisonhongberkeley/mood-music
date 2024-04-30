@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.container {
+    margin: .5em 1em;
+    width: 80vw;
+}
+
+.button {
+    background-color: #EDE2F0;
+}
+
+.background {
+    background-color: #EDE2F0;
+}
