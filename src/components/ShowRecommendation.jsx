@@ -7,7 +7,7 @@ import './Feature.css'
 function ShowRecommendation() {
     const location = useLocation();
     const { data } = location.state || {};
-    let isLoaded = false;
+    const [isLoaded, setIsLoaded] = useState(false);
     const [recommendations, setRecommendations] = useState([]);
 
     const fetchData = async () => {
@@ -30,47 +30,45 @@ function ShowRecommendation() {
          const seedGenres = ["classical","country","pop","world-music"]
          const seedArtist = "4NHQUGzhtTLFvgF5SZesLK";
 
-         isLoaded = true;
          console.log(isLoaded);
 
-       //   const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists${seedArtist}&seed_genres=${seedGenres}&
-       //     min_acousticness=${min_acousticness}&max_acousticness=${max_acousticness}&
-       //     min_energy=${min_energy}&max_energy=${max_energy}&
-       //     min_tempo=${min_tempo}&max_energy=${max_tempo}&
-       //     min_loudness=${min_loudness}&max_loudness=${max_loudness}&
-       //     min_liveness=${min_liveness}&max_liveness=${max_liveness}&
-       //     min_instrument=${min_instrument}&max_instrument=${max_instrument}&
-       //     min_danceability=${min_danceability}&max_danceability=${max_danceability}&
-       //     limit=1`, {
-       //     method: 'GET',
-       //     headers: {
-       //         'Authorization': 'Bearer ACCESS_TOKEN',
-       //         'Content-Type': 'application/json'
-       //     }
-       // });
+         const response = await fetch(`https://api.spotify.com/v1/recommendations?seed_artists${seedArtist}&seed_genres=${seedGenres}&
+           min_acousticness=${min_acousticness}&max_acousticness=${max_acousticness}&
+           min_energy=${min_energy}&max_energy=${max_energy}&
+           min_tempo=${min_tempo}&max_energy=${max_tempo}&
+           min_loudness=${min_loudness}&max_loudness=${max_loudness}&
+           min_liveness=${min_liveness}&max_liveness=${max_liveness}&
+           min_instrument=${min_instrument}&max_instrument=${max_instrument}&
+           min_danceability=${min_danceability}&max_danceability=${max_danceability}&
+           limit=1`, {
+           method: 'GET',
+           headers: {
+               'Authorization': 'Bearer ACCESS_TOKEN',
+               'Content-Type': 'application/json'
+           }
+       });
          
 
-       //    if (!response.ok) {
-       //        throw new Error('Failed to fetch recommendations');
-       //    }
+          if (!response.ok) {
+              throw new Error('Failed to fetch recommendations');
+          }
 
-       //    const responseData = await response.json();
-       //    const trackName = responseData.tracks[0].album.name;
-       //    const artistName = responseData.tracks[0].album.artists[0].name;
-       //    console.log(trackName);
-       //    console.log(artistName);
-       //    setRecommendations([trackName, artistName] || []);
-       //    setisLoaded(true);
+          const responseData = await response.json();
+          const trackName = responseData.tracks[0].album.name;
+          const artistName = responseData.tracks[0].album.artists[0].name;
+          console.log(trackName);
+          console.log(artistName);
+          setRecommendations([trackName, artistName] || []);
+          setIsLoaded(true);
       } catch (error) {
           console.error('Error fetching recommendations:', error.message);
       };
   }
 
-  useEffect(() => {
-    if (!isLoaded) {
-        fetchData();
-    }
-  }, []);
+    const handleSubmit = () => {
+
+      fetchData();
+    };
 
 
       return (
@@ -82,6 +80,9 @@ function ShowRecommendation() {
                 {feature}: {min} - {max}
               </ul>
             ))}
+            <div class="container">
+                <button class="button" onClick={handleSubmit}>click for recommendation!</button>
+            </div>
         {isLoaded && <h2>your song rec is: {`${recommendations[0]} by ${recommendations[1]}`}</h2>}
         
 
